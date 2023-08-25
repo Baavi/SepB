@@ -1,0 +1,6 @@
+/* Base styles */
+
+.container {
+  margin-top: 10rem;
+  min-height: 60vh;
+}
