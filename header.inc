@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
     <button
       class="navbar-toggler"
       type="button"
@@ -12,7 +12,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">CityLogistics</a>
+      <a class="navbar-brand mb-0 h1" href="index.php"
+        ><img
+          src="styles/images/logo.svg"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
+        &nbsp CityLogistics</a
+      >
     </div>
   </nav>
 </header>

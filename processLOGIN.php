@@ -1,5 +1,6 @@
 <?php
 
+// SANITISE INPUT
 function sanitise_input($data)
 {
     $data = trim($data);
@@ -47,6 +48,8 @@ if (isset($_POST["submit"])) {
                     if ($Password == $pwd) {
                         $_SESSION["UserID"] = $row["User_ID"];
                         //echo "<p>UserID : ", $_SESSION["UserID"],"</p>";
+                        // close the database connection
+                        mysqli_close($conn);
                         header("location: dashboard.php");
                     } else {
                         header("location: index.php?Password=invalid");
