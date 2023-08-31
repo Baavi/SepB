@@ -87,10 +87,28 @@ if (isset($_POST["submit"])) {
     if (!$conn) {
         // Display error msg
         echo "<p class='manage_error'>Database connection failure </p>";
-        header("location: signup.php");
+        header("location: signup.php?Server=error");
         exit();
     } else {
         // Upon successful connection
+        $sql_table = "Users";
+        $table_query = "CREATE TABLE IF NOT EXISTS $sql_table
+        ( UserID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        First_Name VARCHAR(20) NOT NULL,
+        Last_Name VARCHAR(20) NOT NULL,
+        Email VARCHAR(50) NOT NULL,
+        Password VARCHAR(50) NOT NULL);";
+
+        $table_result = mysqli_query($conn, $table_query);
+
+        // checks if the execution was successful
+        if (!$table_result) {
+            echo "<p>Something is wrong with ", $query, "</p>";
+            header("location: signup.php?Server=error");
+            exit();
+        }
+
+        // Encrypting Password
         $MD5 = md5($Password);
         $sqlString = "INSERT INTO Users(First_Name,Last_Name,Email,Password) 
                                     VALUES('$Firstname','$Lastname','$Email','$MD5')";
@@ -100,7 +118,7 @@ if (isset($_POST["submit"])) {
         // checks if the execution was successful
         if (!$queryResult) {
             echo "<p>Something is wrong with ", $queryResult, "</p>";
-            header("location: signup.php");
+            header("location: signup.php?Server=error");
             exit();
         }
         echo "<p>Successfully inserted data in the table.</p>";
