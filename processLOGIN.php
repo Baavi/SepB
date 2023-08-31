@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
 
             require_once("settings.php"); // connection info
 
-            $conn = @mysqli_connect($host, $user, $pwd, $sql_db);
+            $conn = @mysqli_connect($host, $user, $pwd, $sql_db, $port);
             // check if connection is successful
             if (!$conn) {
                 // Display error msg
