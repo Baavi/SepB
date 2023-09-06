@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // SANITISE INPUT
 function sanitise_input($data)
 {
@@ -35,6 +35,7 @@ if (isset($_POST["submit"])) {
                 $user_result = mysqli_query($conn, $user_query);
                 $row = mysqli_fetch_assoc($user_result);
                 $pwd = $row["Password"];
+                $customer_name = $row["First_Name"];
                 //echo "<p> DB Password: $pwd</p>";
                 // checks if the execution was successful
                 if (!$row) {
@@ -47,6 +48,7 @@ if (isset($_POST["submit"])) {
                     //$password_check = password_verify($Password, $pwd); password_verify(),password_hash() cannot be used becouse the current Mercury server doesn't support it
                     if ($Password == $pwd) {
                         $_SESSION["UserID"] = $row["User_ID"];
+                        $_SESSION["customer_name"] = $customer_name;
                         //echo "<p>UserID : ", $_SESSION["UserID"],"</p>";
                         // close the database connection
                         mysqli_close($conn);
