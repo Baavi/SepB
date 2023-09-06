@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,6 +61,12 @@
                     <span class="links_name">Contact</span>
                 </a>
             </li>
+            <li>
+                <a href="logout.php">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="links_name">Logout</span>
+                </a>
+            </li>
         </ul>
     </div>
     <section class="home-section">
@@ -70,9 +80,13 @@
                 <i class="bx bx-search"></i>
             </div>
             <div class="profile-details">
-                <img src="./assets/images/ava1.jpeg" alt="" />
-                <span class="admin_name">John Doe</span>
-                <i class="bx bx-chevron-down"></i>
+                <img src="./assets/images/ava2.png" alt="" />
+                <span class="admin_name"><?php
+    $customer_name = $_SESSION["customer_name"];
+
+    echo $customer_name;
+?></span>
+                
             </div>
         </nav>
 
@@ -130,5 +144,6 @@
     };
     </script>
 </body>
+
 
 </html>
