@@ -14,8 +14,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./styles/style.css" rel="stylesheet" />
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Dashboard Page</title>
     <link rel="icon" href="styles/images/logo.svg" type="image/icon" />
@@ -82,11 +81,11 @@ session_start();
             <div class="profile-details">
                 <img src="./assets/images/ava2.png" alt="" />
                 <span class="admin_name"><?php
-    $customer_name = $_SESSION["customer_name"];
+                                            $customer_name = $_SESSION["customer_name"];
 
-    echo $customer_name;
-?></span>
-                
+                                            echo $customer_name;
+                                            ?></span>
+
             </div>
         </nav>
 
@@ -131,17 +130,17 @@ session_start();
         </div>
     </section>
     <?php
-  include_once("footer.inc");
-  ?>
+    include_once("footer.inc");
+    ?>
     <script>
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".sidebarBtn");
-    sidebarBtn.onclick = function() {
-        sidebar.classList.toggle("active");
-        if (sidebar.classList.contains("active")) {
-            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-        } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    };
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function() {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        };
     </script>
 </body>
 
