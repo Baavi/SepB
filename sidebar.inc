@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item">
+                <a href="contact.php" class="menu-item">
                     <i class='bx bx-message-rounded-dots'></i>
                     <span class="links_name">Contact</span>
                 </a>
