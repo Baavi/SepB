@@ -308,3 +308,8 @@ div#map {
 div#menu {
   margin-top: 10px !important;
 }
+
+/* contact page  */
+form#contact-form {
+  padding: 110px 40px;
+}
