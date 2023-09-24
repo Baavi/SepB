@@ -307,6 +307,7 @@ div#map {
 
 div#menu {
   margin-top: 10px !important;
+  z-index: 2;
 }
 
 /* contact page  */
