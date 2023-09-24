@@ -43,13 +43,13 @@ if (!isset($_SESSION["customer_name"])) {
             <div id="menu" style='margin: 2rem;'>
                 <input id="clm80pe5u003701pvej0f6043" type="radio" name="rtoggle" value="clm80pe5u003701pvej0f6043"
                     checked="checked">
-                <label for="clm80pe5u003701pvej0f6043">Truck Routes</label> <br />
+                <label for="clm80pe5u003701pvej0f6043">Truck Routes</label>
                 <input id="cllzvh04100aj01qz0te38tjh" type="radio" name="rtoggle" value="cllzvh04100aj01qz0te38tjh">
-                <label for="cllzvh04100aj01qz0te38tjh">Micro Hubs and Warehouses</label> <br />
+                <label for="cllzvh04100aj01qz0te38tjh">Micro Hubs and Destinations</label>
                 <input id="clm81oq8f00mg01rc7wfv3meb" type="radio" name="rtoggle" value="clm81oq8f00mg01rc7wfv3meb">
-                <label for="clm81oq8f00mg01rc7wfv3meb">Micro Hubs and Truck Routes</label> <br />
+                <label for="clm81oq8f00mg01rc7wfv3meb">Destinations and Truck Routes</label>
                 <input id="clmp1mtar01w601r881bbfgfx" type="radio" name="rtoggle" value="clmp1mtar01w601r881bbfgfx">
-                <label for="clmp1mtar01w601r881bbfgfx">Micro Hubs & Warehouses and Truck Routes</label>
+                <label for="clmp1mtar01w601r881bbfgfx">Micro Hubs & Destinations and Truck Routes</label>
             </div>
 
             <script>
@@ -74,6 +74,45 @@ if (!isset($_SESSION["customer_name"])) {
                     map.setStyle('mapbox://styles/berryagt/' + layerId);
                 };
             }
+            //Labels for MicroHubs
+            map.on('click', (event) => {
+                const features = map.queryRenderedFeatures(event.point, {
+                    layers: ['fuel']
+                });
+                if (!features.length) {
+                    return;
+                }
+                const feature = features[0];
+
+                const popup = new mapboxgl.Popup({
+                        offset: [0, -5]
+                    })
+                    .setLngLat(feature.geometry.coordinates)
+                    .setHTML(
+                        `<br><p> MicroHub ID: ${feature.properties.Station_ID} </p><p> Name: ${feature.properties.NAME}</p><p> Address: ${feature.properties.ADDRESS}</p>`
+                    )
+                    .addTo(map);
+            });
+            //Label for WH
+            map.on('click', (event) => {
+                const features = map.queryRenderedFeatures(event.point, {
+                    layers: ['wh']
+                });
+                if (!features.length) {
+                    return;
+                }
+                const feature = features[0];
+
+                const popup = new mapboxgl.Popup({
+                        offset: [0, -5]
+                    })
+                    .setLngLat(feature.geometry.coordinates)
+                    .setHTML(
+                        `<br><p> Warehouse ID: ${feature.properties.Station_ID} </p><p> Name: ${feature.properties.NAME}</p><p> Address: ${feature.properties.ADDRESS}</p>`
+                    )
+                    .addTo(map);
+            });
+            //Labels for Destinations
             map.on('click', (event) => {
                 const features = map.queryRenderedFeatures(event.point, {
                     layers: ['rogue']
@@ -88,7 +127,7 @@ if (!isset($_SESSION["customer_name"])) {
                     })
                     .setLngLat(feature.geometry.coordinates)
                     .setHTML(
-                        `<br><p>WH ID: ${feature.properties.WH}</p>`
+                        `<br><p>Destination ID: ${feature.properties.WH}</p>`
                     )
                     .addTo(map);
             });
