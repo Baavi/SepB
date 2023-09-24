@@ -20,7 +20,7 @@ if (!isset($_SESSION["customer_name"])) {
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src='./scripts/sidebar.js'></script>
-    <title>Dashboard Page</title>
+    <title>Microhubs Page</title>
     <link rel="icon" href="styles/images/logo.svg" type="image/icon" />
     <!-- Mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
@@ -58,9 +58,11 @@ if (!isset($_SESSION["customer_name"])) {
 
                 <div id="menu" style='margin: 2rem;'>
                     <input id="cllzvh04100aj01qz0te38tjh" type="radio" name="rtoggle" value="cllzvh04100aj01qz0te38tjh" checked="checked">
-                    <label for="cllzvh04100aj01qz0te38tjh">Micro Hubs</label>
+                    <label for="cllzvh04100aj01qz0te38tjh">Micro Hubs and Warehouses</label> <br />
                     <input id="clm81oq8f00mg01rc7wfv3meb" type="radio" name="rtoggle" value="clm81oq8f00mg01rc7wfv3meb">
-                    <label for="clm81oq8f00mg01rc7wfv3meb">Micro Hubs and Truck Routes</label>
+                    <label for="clm81oq8f00mg01rc7wfv3meb">Micro Hubs and Truck Routes</label> <br />
+                    <input id="clmp1mtar01w601r881bbfgfx" type="radio" name="rtoggle" value="clmp1mtar01w601r881bbfgfx">
+                    <label for="clmp1mtar01w601r881bbfgfx">Micro Hubs & Warehouses and Truck Routes</label>
                 </div>
 
                 <script type="module">
@@ -100,8 +102,8 @@ if (!isset($_SESSION["customer_name"])) {
                             .setLngLat(feature.geometry.coordinates)
                             .setHTML(
                                 `<p><strong>ID: ${feature.properties.WH}</strong></p>
-                    <p>Long: ${feature.geometry.coordinates[0].toFixed(5)}</p>
-                    <p>Lat: ${feature.geometry.coordinates[1].toFixed(5)}</p>`
+                                <p>Long: ${feature.geometry.coordinates[0].toFixed(5)}</p>
+                                <p>Lat: ${feature.geometry.coordinates[1].toFixed(5)}</p>`
                             )
                             .addTo(map);
                     });
@@ -122,12 +124,6 @@ if (!isset($_SESSION["customer_name"])) {
                             profileSwitcher: true
                         }
                     });
-
-                    // remove control
-                    var removeDirectionCtrlBtn = document.querySelector("#remove-direction-ctrl");
-
-                    // remove all waypoints
-                    var removeWaypointsButton = document.querySelector("#remove-waypoints");
 
                     map.addControl(directions, 'top-left');
                 </script>
