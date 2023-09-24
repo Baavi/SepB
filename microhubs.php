@@ -126,6 +126,10 @@ if (!isset($_SESSION["customer_name"])) {
                     });
 
                     map.addControl(directions, 'top-left');
+
+                    directions.on('route', function(e) {
+                        console.log(e.route); // Logs the current route shown in the interface.
+                    });
                 </script>
                 <!-- Mapbox -->
             </div>
