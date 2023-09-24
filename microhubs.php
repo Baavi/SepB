@@ -25,6 +25,8 @@ if (!isset($_SESSION["customer_name"])) {
     <!-- Mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
     <!-- Mapbox -->
 </head>
 
@@ -51,6 +53,7 @@ if (!isset($_SESSION["customer_name"])) {
             </div>
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
+
                 <div id='map' style='width: auto; height: 95vh; margin: 0'></div>
 
                 <div id="menu" style='margin: 2rem;'>
@@ -60,7 +63,7 @@ if (!isset($_SESSION["customer_name"])) {
                     <label for="clm81oq8f00mg01rc7wfv3meb">Micro Hubs and Truck Routes</label>
                 </div>
 
-                <script>
+                <script type="module">
                     mapboxgl.accessToken =
                         'pk.eyJ1IjoiYmVycnlhZ3QiLCJhIjoiY2xseXRjNDBjMmVjZTNkbGlhcmQ4Y2w3ZSJ9.nQoSvkaX9K01PcQD73JxDg';
                     const map = new mapboxgl.Map({
@@ -96,10 +99,37 @@ if (!isset($_SESSION["customer_name"])) {
                             })
                             .setLngLat(feature.geometry.coordinates)
                             .setHTML(
-                                `<br><p>WH ID: ${feature.properties.WH}</p>`
+                                `<p><strong>ID: ${feature.properties.WH}</strong></p>
+                    <p>Long: ${feature.geometry.coordinates[0].toFixed(5)}</p>
+                    <p>Lat: ${feature.geometry.coordinates[1].toFixed(5)}</p>`
                             )
                             .addTo(map);
                     });
+
+                    // Navigation
+                    import directionsTruckStyle from "./scripts/direction_bike_style.js"
+
+                    var directions = new MapboxDirections({
+                        styles: directionsTruckStyle,
+                        accessToken: mapboxgl.accessToken,
+                        unit: 'metric',
+                        profile: 'mapbox/driving',
+                        container: 'directions',
+                        interactive: true,
+                        controls: {
+                            inputs: true,
+                            instructions: false,
+                            profileSwitcher: true
+                        }
+                    });
+
+                    // remove control
+                    var removeDirectionCtrlBtn = document.querySelector("#remove-direction-ctrl");
+
+                    // remove all waypoints
+                    var removeWaypointsButton = document.querySelector("#remove-waypoints");
+
+                    map.addControl(directions, 'top-left');
                 </script>
                 <!-- Mapbox -->
             </div>
