@@ -17,6 +17,12 @@
                 </a>
             </li>
             <li>
+                <a href="route_planner.php" class="menu-item">
+                    <i class="bx bx-trip"></i>
+                    <span class="links_name">Route Planner</span>
+                </a>
+            </li>
+            <li>
                 <a href="microhubs.php" class="menu-item">
                     <i class="bx bx-package"></i>
                     <span class="links_name">Search by micro hubs</span>

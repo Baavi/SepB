@@ -314,3 +314,10 @@ div#menu {
 form#contact-form {
   padding: 110px 40px;
 }
+
+.truck {
+  font-size: 40px;
+  color: #00b333;
+  text-shadow: 0 0 3px #000, 0 0 5px #000;
+  text-align: center
+}
