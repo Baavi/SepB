@@ -43,11 +43,9 @@ if (!isset($_SESSION["customer_name"])) {
                 <div class="box">
                     <div class="left-side">
                         <div class="box-topic">Vehicle kms travelled (VKT)</div>
-                        <div class="number" id="total-vkt">306.20 km</div>
-                        <!-- <div class="indicator">
-                            <i class="bx bx-down-arrow-alt down"></i>
-                            <span class="text">1.3% down from last month</span>
-                        </div> -->
+                        <div class="number text-primary" id="total-vkt">0.0 km</div>
+                        <div class="text-danger" id="truck-vkt">0</div>
+                        <div class="text-success" id="bike-vkt">0</div>
                     </div>
                     <i class="bx bxs-truck cart"></i>
                 </div>
@@ -55,19 +53,19 @@ if (!isset($_SESSION["customer_name"])) {
                 <div class="box">
                     <div class="left-side">
                         <div class="box-topic">Total Travel Time</div>
-                        <div class="number" id="total-travel-time">2 hours</div>
-                        <!-- <div class="indicator">
-                            <i class="bx bx-down-arrow-alt down"></i>
-                            <span class="text">1.3% down from last month</span>
-                        </div> -->
+                        <div class="number text-primary" id="total-travel-time">0 hours</div>
+                        <div class="text-danger" id="truck-time">0</div>
+                        <div class="text-success" id="bike-time">0</div>
                     </div>
                     <i class="bx bxs-time cart"></i>
                 </div>
 
                 <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">CO2 emissions</div>
-                        <div class="number" id="co2-emissions">150</div>
+                    <div class="left-side">
+                        <div class="box-topic">CO2 emissions 
+                            <span class="text-danger">from truck</span>
+                        </div>
+                        <div class="number text-warning" id="co2-emissions">0</div>
                         <!-- <div class="indicator">
                             <i class="bx bx-down-arrow-alt down"></i>
                             <span class="text">1.2% down from last month</span>
@@ -79,6 +77,12 @@ if (!isset($_SESSION["customer_name"])) {
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
                 <div id='map' style='width: auto; height: 1000px; margin: 2rem;'></div>
+                <div id="menu" style='margin: 2rem;'>
+                    <input id="cln0hsv9u027w01rfei7wdo5j" type="radio" name="rtoggle" value="cln0hsv9u027w01rfei7wdo5j" checked="checked">
+                    <label for="cln0hsv9u027w01rfei7wdo5j">Micro Hubs</label> <br>
+                    <input id="clmp1mtar01w601r881bbfgfx" type="radio" name="rtoggle" value="clmp1mtar01w601r881bbfgfx">
+                    <label for="clmp1mtar01w601r881bbfgfx">Micro Hubs, Destinations and Truck Routes</label>
+                </div>
                 <script src="./scripts/route_planner.js"></script>
 
             </div>
