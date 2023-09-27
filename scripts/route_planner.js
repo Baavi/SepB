@@ -1,6 +1,13 @@
+
+let styleURL = data.styleID;
+let today = new Date()
+let date = today.toLocaleDateString("default", { year: "numeric" }) + "-"
+    + today.toLocaleDateString("default", { month: "2-digit" }) + "-"
+    + today.toLocaleDateString("default", { day: "2-digit" });
+let travelTime = (data.time == "any") ? "" : `&depart_at=${date}T${data.time}`;
 let nearestOrgHub, nearestDestHub;
 
-let vktTruck = 0, vktBike = 0;
+let vktTruck = 0, vktBike = 0;  
 let truckTime = 0, bikeTime = 0;
 const originCoordinates = [
     [144.96200, -37.80500],
@@ -31,56 +38,13 @@ mapboxgl.accessToken =
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/berryagt/cln0hsv9u027w01rfei7wdo5j', // style URL
+    style: `mapbox://styles/berryagt/${styleURL}`, // style URL
     center: [144.971, -37.809], // starting position
     zoom: 12 // starting zoom
 });
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
-
-
-
-//Labels for MicroHubs
-map.on('click', (event) => {
-    const features = map.queryRenderedFeatures(event.point, {
-        layers: ['fuel']
-    });
-    if (!features.length) {
-        return;
-    }
-    const feature = features[0];
-
-    const popup = new mapboxgl.Popup({
-        offset: [0, -5]
-    })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(
-            `<br><p> MicroHub ID: ${feature.properties.Station_ID} </p><p> Name: ${feature.properties.NAME}</p><p> Address: ${feature.properties.ADDRESS}</p>`
-        )
-        .addTo(map);
-});
-
-//Labels for Destinations
-map.on('click', (event) => {
-    const features = map.queryRenderedFeatures(event.point, {
-        layers: ['rogue']
-    });
-    if (!features.length) {
-        return;
-    }
-    const feature = features[0];
-
-    const popup = new mapboxgl.Popup({
-        offset: [0, -5]
-    })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(
-            `<br><p>Destination ID: ${feature.properties.WH}</p>`
-        )
-        .addTo(map);
-});
-
 
 // Create an empty GeoJSON feature collection, which will be used as the data source for the route before users add any new data
 const nothing = turf.featureCollection([]);
@@ -124,53 +88,6 @@ map.on('load', async (event) => {
             // Add the image to the map style.
             map.addImage('dest_icon_marker', image);
         });
-
-    // Layer to display all origins on the map
-    map.addLayer({
-        id: 'origins',
-        type: 'symbol',
-        source: {
-            type: 'geojson',
-            data: {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "MultiPoint",
-                        "coordinates": originCoordinates
-                    }
-                }]
-            }
-        },
-        layout: {
-            'icon-image': 'origin_icon_marker',
-            'icon-size': 1
-        }
-    });
-
-    map.addLayer({
-        id: 'destinations',
-        type: 'symbol',
-        source: {
-            type: 'geojson',
-            data: {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "MultiPoint",
-                        "coordinates": destCoordinates
-                    }
-                }]
-            }
-        },
-        layout: {
-            'icon-image': 'dest_icon_marker',
-            'icon-size': 1
-        }
-    });
 
     map.loadImage(
         './assets/images/warehouse_icon.png',
@@ -221,7 +138,7 @@ map.on('load', async (event) => {
         }
     });
 
-    const fuelFeatures = map.queryRenderedFeatures(event.point, {
+    const fuelFeatures = map.queryRenderedFeatures({
         layers: ['fuel']
     });
     if (!fuelFeatures.length) {
@@ -233,65 +150,6 @@ map.on('load', async (event) => {
     // Finding the nearest hub to the centroid of all origins/destinations
     nearestOrgHub = getNearestHubFromCoordinates(originCoordinates, fuelFeatureCollection);
     nearestDestHub = getNearestHubFromCoordinates(destCoordinates, fuelFeatureCollection);
-
-
-    // Create a circle layer
-    map.addLayer({
-        id: 'warehouse',
-        type: 'circle',
-        source: {
-            data: nearestOrgHub,
-            type: 'geojson'
-        },
-        paint: {
-            'circle-radius': 20,
-            'circle-color': '#8aecff',
-            'circle-stroke-color': '#000',
-            'circle-stroke-width': 2
-        }
-    });
-
-    map.addLayer({
-        id: 'org-warehouse-symbol',
-        type: 'symbol',
-        source: {
-            data: nearestOrgHub,
-            type: 'geojson'
-        },
-        layout: {
-            'icon-image': 'warehouse',
-            'icon-size': 1.5
-        }
-    });
-
-    // Create a circle layer
-    map.addLayer({
-        id: 'warehouse2',
-        type: 'circle',
-        source: {
-            data: nearestDestHub,
-            type: 'geojson'
-        },
-        paint: {
-            'circle-radius': 20,
-            'circle-color': '#8aecff',
-            'circle-stroke-color': '#000',
-            'circle-stroke-width': 2
-        }
-    });
-
-    map.addLayer({
-        id: 'dest-warehouse-symbol',
-        type: 'symbol',
-        source: {
-            data: nearestDestHub,
-            type: 'geojson'
-        },
-        layout: {
-            'icon-image': 'warehouse',
-            'icon-size': 1.5
-        }
-    });
 
     // Make a request to the Optimization API
     const query = await fetch(assembleQueryURLAroundHub(nearestOrgHub, originCoordinates, 'driving'), {
@@ -369,198 +227,55 @@ map.on('load', async (event) => {
     // Update the `route` source by getting the route source
     // and setting the data equal to routeGeoJSON
     map.getSource('org-route').setData(routeGeoJSON);
-
-    map.addLayer({
-        id: 'routeline-active',
-        type: 'line',
-        source: 'org-route',
-        layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        paint: {
-            'line-color': '#007bff',
-            'line-width': ['interpolate', ['linear'],
-                ['zoom'], 15, 5, 22, 15
-            ]
-        }
-    },
-        'waterway-label'
-    );
-
-    map.addLayer({
-        id: 'routearrows',
-        type: 'symbol',
-        source: 'org-route',
-        layout: {
-            'symbol-placement': 'line',
-            'text-field': '▶',
-            'text-size': ['interpolate', ['linear'],
-                ['zoom'], 12, 24, 22, 60
-            ],
-            'symbol-spacing': ['interpolate', ['linear'],
-                ['zoom'], 12, 30, 22, 160
-            ],
-            'text-keep-upright': false
-        },
-        paint: {
-            'text-color': '#E08E00',
-            'text-halo-color': 'hsl(55, 11%, 96%)',
-            'text-halo-width': 3
-        }
-    },
-        'waterway-label'
-    );
+    drawRoutes('routeline', 'org-route', '#007bff');
 
     map.getSource('hub-to-hub-route').setData(routeGeoJSON2);
-
-    map.addLayer({
-        id: 'routeline2-active',
-        type: 'line',
-        source: 'hub-to-hub-route',
-        layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        paint: {
-            'line-color': '#B86812',
-            'line-width': ['interpolate', ['linear'],
-                ['zoom'], 15, 5, 22, 15
-            ]
-        }
-    },
-        'waterway-label'
-    );
-
-    map.addLayer({
-        id: 'routearrows2',
-        type: 'symbol',
-        source: 'hub-to-hub-route',
-        layout: {
-            'symbol-placement': 'line',
-            'text-field': '▶',
-            'text-size': ['interpolate', ['linear'],
-                ['zoom'], 12, 24, 22, 60
-            ],
-            'symbol-spacing': ['interpolate', ['linear'],
-                ['zoom'], 12, 30, 22, 160
-            ],
-            'text-keep-upright': false
-        },
-        paint: {
-            'text-color': '#E08E00',
-            'text-halo-color': 'hsl(55, 11%, 96%)',
-            'text-halo-width': 3
-        }
-    },
-        'waterway-label'
-    );
+    drawRoutes('routeline2', 'hub-to-hub-route', '#B86812');
 
     // Update the `route` source by getting the route source
     // and setting the data equal to routeGeoJSON
     map.getSource('dest-truck-route').setData(routeGeoJSON3);
-
-    map.addLayer({
-        id: 'routeline3-active',
-        type: 'line',
-        source: 'dest-truck-route',
-        layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        paint: {
-            'line-color': '#bb3dcc',
-            'line-width': ['interpolate', ['linear'],
-                ['zoom'], 15, 5, 22, 15
-            ]
-        }
-    },
-        'waterway-label'
-    );
-
-    map.addLayer({
-        id: 'routearrows3',
-        type: 'symbol',
-        source: 'dest-truck-route',
-        layout: {
-            'symbol-placement': 'line',
-            'text-field': '▶',
-            'text-size': ['interpolate', ['linear'],
-                ['zoom'], 12, 24, 22, 60
-            ],
-            'symbol-spacing': ['interpolate', ['linear'],
-                ['zoom'], 12, 30, 22, 160
-            ],
-            'text-keep-upright': false
-        },
-        paint: {
-            'text-color': '#E08E00',
-            'text-halo-color': 'hsl(55, 11%, 96%)',
-            'text-halo-width': 3
-        }
-    },
-        'waterway-label'
-    );
+    drawRoutes('routeline3', 'dest-truck-route', '#bb3dcc');
 
     // Update the `route` source by getting the route source
     // and setting the data equal to routeGeoJSON
     map.getSource('dest-bike-route').setData(routeGeoJSON4);
+    drawRoutes('routeline4', 'dest-bike-route', '#006100');
 
-    map.addLayer({
-        id: 'routeline4-active',
-        type: 'line',
-        source: 'dest-bike-route',
-        layout: {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        paint: {
-            'line-color': '#1fd655',
-            'line-width': ['interpolate', ['linear'],
-                ['zoom'], 15, 5, 22, 15
-            ]
-        }
-    },
-        'waterway-label'
-    );
+    // Layer to display all origins on the map
+    drawEndPoints('origins', 'origin_icon_marker', originCoordinates);
+    drawEndPoints('destinations', 'dest_icon_marker', destCoordinates);
 
-    map.addLayer({
-        id: 'routearrows4',
-        type: 'symbol',
-        source: 'dest-bike-route',
-        layout: {
-            'symbol-placement': 'line',
-            'text-field': '▶',
-            'text-size': ['interpolate', ['linear'],
-                ['zoom'], 12, 24, 22, 60
-            ],
-            'symbol-spacing': ['interpolate', ['linear'],
-                ['zoom'], 12, 30, 22, 160
-            ],
-            'text-keep-upright': false
-        },
-        paint: {
-            'text-color': '#E08E00',
-            'text-halo-color': 'hsl(55, 11%, 96%)',
-            'text-halo-width': 3
-        }
-    },
-        'waterway-label'
-    );
+    // Draw 2 warehouses
+    drawWarehouse('warehouse-1', nearestOrgHub);
+    drawWarehouse('warehouse-2', nearestDestHub);
 
     updateData();
 });
 
-// Toggle display
-const layerList = document.getElementById('menu');
-const inputs = layerList.getElementsByTagName('input');
+//Labels for MicroHubs
+map.on('click', (event) => {
+    const features = map.queryRenderedFeatures(event.point, {
+        layers: ['fuel']
+    });
+    if (!features.length) {
+        return;
+    }
+    const feature = features[0];
 
-for (const input of inputs) {
-    input.onclick = (layer) => {
-        const layerId = layer.target.id;
-        map.setStyle('mapbox://styles/berryagt/' + layerId);
-    };
-}
+    const popup = new mapboxgl.Popup({
+        offset: [0, -5]
+    })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(
+            `<br><p><strong> MicroHub ID: </strong>${feature.properties.Station_ID} </p>
+            <p><strong> Name: </strong>${feature.properties.NAME}</p>
+            <p><strong> Address: </strong>${feature.properties.ADDRESS}</p>
+            <p><strong> Suburb:</strong> ${feature.properties.SUBURB}</p>`
+        )
+        .addTo(map);
+});
+
 
 function getNearestHubFromCoordinates(coordinates, hubFeatureCollection) {
     var polygon = turf.polygon([coordinates.concat([coordinates[0]])]); // 1st and last coordinate has to be the same
@@ -587,10 +302,110 @@ function assembleQueryURLHubToHub() {
     // Coordinates will include the current location of the truck,
     const coordinates = [nearestOrgHub.geometry.coordinates].concat([nearestDestHub.geometry.coordinates]);
     // console.log(coordinates);
-    return `https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates.join(
+    return `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${coordinates.join(
         ';'
     )}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken
-        }`;
+        }${travelTime}`;
+}
+
+function drawEndPoints(id, image, coordinates) {
+    map.addLayer({
+        id: id,
+        type: 'symbol',
+        source: {
+            type: 'geojson',
+            data: {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "MultiPoint",
+                        "coordinates": coordinates
+                    }
+                }]
+            }
+        },
+        layout: {
+            'icon-image': image,
+            'icon-size': 0.9
+        }
+    });
+}
+
+function drawWarehouse(id, sourceID) {
+    // Create a circle layer
+    map.addLayer({
+        id: id,
+        type: 'circle',
+        source: {
+            data: sourceID,
+            type: 'geojson'
+        },
+        paint: {
+            'circle-radius': 20,
+            'circle-color': '#8aecff',
+            'circle-stroke-color': '#000',
+            'circle-stroke-width': 2
+        }
+    });
+
+    map.addLayer({
+        id: `${id}-symbol`,
+        type: 'symbol',
+        source: {
+            data: sourceID,
+            type: 'geojson'
+        },
+        layout: {
+            'icon-image': 'warehouse',
+            'icon-size': 1.5,
+            "icon-allow-overlap": true
+        }
+    });
+}
+
+function drawRoutes(id, sourceID, color) {
+    map.addLayer({
+        id: id,
+        type: 'line',
+        source: sourceID,
+        layout: {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        paint: {
+            'line-color': color,
+            'line-width': ['interpolate', ['linear'],
+                ['zoom'], 15, 5, 22, 15
+            ]
+        }
+    },
+        'waterway-label'
+    );
+
+    map.addLayer({
+        id: `${id}arrow`,
+        type: 'symbol',
+        source: sourceID,
+        layout: {
+            'symbol-placement': 'line',
+            'text-field': '▶',
+            'text-size': ['interpolate', ['linear'],
+                ['zoom'], 12, 24, 22, 60
+            ],
+            'symbol-spacing': ['interpolate', ['linear'],
+                ['zoom'], 12, 30, 22, 160
+            ],
+            'text-keep-upright': false
+        },
+        paint: {
+            'text-color': '#E08E00',
+            'text-halo-color': 'hsl(55, 11%, 96%)',
+            'text-halo-width': 3
+        }
+    }
+    );
 }
 
 function updateData() {
