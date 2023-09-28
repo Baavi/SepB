@@ -94,10 +94,7 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
                             <span class="text-danger">from truck</span>
                         </div>
                         <div class="number text-warning" id="co2-emissions">0</div>
-                        <!-- <div class="indicator">
-                            <i class="bx bx-down-arrow-alt down"></i>
-                            <span class="text">1.2% down from last month</span>
-                        </div> -->
+                        <br><br><br>
                     </div>
                     <i class="bx bxs-radiation cart"></i>
                 </div>
@@ -105,7 +102,7 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
             <h3 class="m-3">Scenario: <?php echo $scenario ?> - Time: <?php echo $time ?></h3>
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
-                <div id='map' style='width: auto; height: 1000px; margin: 2rem;'></div>
+                <div id='map'></div>
                 <script src="./scripts/route_planner.js" type="module"></script>
 
             </div>
