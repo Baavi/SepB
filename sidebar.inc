@@ -25,7 +25,7 @@
             <li>
                 <a href="microhubs.php" class="menu-item">
                     <i class="bx bx-package"></i>
-                    <span class="links_name">Search by micro hubs</span>
+                    <span class="links_name">Search micro hubs</span>
                 </a>
             </li>
             <li>
