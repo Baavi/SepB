@@ -53,7 +53,8 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
     <!-- Mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js">
+    </script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <!-- Mapbox -->
@@ -114,7 +115,8 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
                 <form action="route_planner_w_microhub.php" method="post" class="required">
 
                     <p class="fw-bolder field-required">Select scenario:</p>
-                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php if ($_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
+                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php echo $_POST["scenario"];
+                                                                                                                                            if ($_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
                         <label for="normal" class="form-check-label">All micro hubs (Normal)</label>
                     </div>
                     <div class="form-check"><input type="radio" name="scenario" value="Fewer micro hubs" class="form-check-input" <?php if ($_POST["scenario"] == "Fewer micro hubs") echo ("checked='checked'"); ?> />
