@@ -5,9 +5,9 @@ if (!isset($_SESSION["customer_name"])) {
     exit();
 }
 
-$scenarioIDNormal = "cln0hsv9u027w01rfei7wdo5j";
-$scenarioIDFewer = "cllzvh04100aj01qz0te38tjh";
-$scenarioIDMore = "clmp1mtar01w601r881bbfgfx";
+$scenarioIDNormal = "cln2s1byp005601pmam10278g";
+$scenarioIDFewer = "cln2s55te005601pyd7821hek";
+$scenarioIDMore = "cln2s73u1005601rchiaj4ahe";
 
 $scenario = (isset($_POST["scenario"])) ? $_POST["scenario"] : "All micro hubs (normal)";
 switch ($scenario) {
@@ -114,13 +114,13 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
                 <form action="route_planner_w_microhub.php" method="post" class="required">
 
                     <p class="fw-bolder field-required">Select scenario:</p>
-                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php if ($_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
+                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php if (!isset($_POST["scenario"]) || $_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
                         <label for="normal" class="form-check-label">All micro hubs (Normal)</label>
                     </div>
-                    <div class="form-check"><input type="radio" name="scenario" value="Fewer micro hubs" class="form-check-input" <?php if ($_POST["scenario"] == "Fewer micro hubs") echo ("checked='checked'"); ?> />
+                    <div class="form-check"><input type="radio" name="scenario" value="Fewer micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "Fewer micro hubs") echo ("checked='checked'"); ?> />
                         <label for="fewer" class="form-check-label">Fewer micro hubs</label>
                     </div>
-                    <div class="form-check mb-3"><input type="radio" name="scenario" value="More micro hubs" class="form-check-input" <?php if ($_POST["scenario"] == "More micro hubs") echo ("checked='checked'"); ?> />
+                    <div class="form-check mb-3"><input type="radio" name="scenario" value="More micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "More micro hubs") echo ("checked='checked'"); ?> />
                         <label for="more" class="form-check-label">More micro hubs</label>
                     </div>
 

@@ -268,7 +268,7 @@ map.on('click', (event) => {
     })
         .setLngLat(feature.geometry.coordinates)
         .setHTML(
-            `<br><p><strong> MicroHub ID: </strong>${feature.properties.Station_ID} </p>
+            `<br><p><strong> MicroHub ID: </strong>${feature.properties.OBJECTID} </p>
             <p><strong> Name: </strong>${feature.properties.NAME}</p>
             <p><strong> Address: </strong>${feature.properties.ADDRESS}</p>
             <p><strong> Suburb:</strong> ${feature.properties.SUBURB}</p>`
