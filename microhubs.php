@@ -25,6 +25,8 @@ if (!isset($_SESSION["customer_name"])) {
     <!-- Mapbox -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js">
     </script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
@@ -50,8 +52,13 @@ if (!isset($_SESSION["customer_name"])) {
             </div>
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
-
-                <div id='map' style='width: auto; height: 95vh; margin: 0'></div>
+                <div class='map-sidebar'>
+                    <div class='heading'>
+                        <h3>Microhubs locations</h3>
+                    </div>
+                    <div id='listings' class='listings'></div>
+                </div>
+                <div id="map" class="map-with-sidebar"></div>
 
                 <script src="scripts/microhub.js" type="module"></script>
                 <!-- Mapbox -->

@@ -305,9 +305,9 @@ nav .profile-details i {
 
 /* mapbox map  */
 div#map {
-  margin: 0 !important;
-  width: 100% !important;
-  height: 95vh !important;
+  margin: 0;
+  width: 100%;
+  height: 95vh;
 }
 
 div#menu {
@@ -325,4 +325,74 @@ form#contact-form {
   color: #00b333;
   text-shadow: 0 0 3px #000, 0 0 5px #000;
   text-align: center
+}
+
+/* microhub page  */
+
+/* The page is split between map and sidebar - the sidebar gets 1/3, map
+gets 2/3 of the page. You can adjust this to your personal liking. */
+.map-sidebar {
+  position: absolute;
+  width: 25%;
+  height: 95vh;
+  left: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.78);
+  z-index: 3;
+}
+
+.map-with-sidebar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.map-sidebar .heading {
+  color: #fff;
+  background: rgba(255, 193, 7, 0.90);
+  border-bottom: 1px solid #eee;
+  height: 60px;
+  padding: 10px 0 10px 15px;
+}
+
+.listings {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
+.listings .item {
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.listings .item:last-child { border-bottom: none; }
+
+.listings .item .title {
+  display: block;
+  font-weight: 700;
+}
+
+.listings .item .title small { font-weight: 400; }
+
+.listings .item.active {
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 5px;
+  border-left: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #17a2b8;
+  border-radius: 0;
 }
