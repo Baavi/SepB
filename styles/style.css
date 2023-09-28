@@ -362,6 +362,11 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   padding-bottom: 60px;
 }
 
+.listings span:hover {
+  text-decoration: underline;
+  color: #0761c0 !important;
+}
+
 .listings .item {
   border-bottom: 1px solid #eee;
   padding: 10px;
@@ -379,6 +384,10 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
 
 .listings .item.active {
   background-color: rgba(255, 255, 255, 0.45);
+}
+
+.listings .item.active span{
+  color: #0761c0 !important;
 }
 
 ::-webkit-scrollbar {

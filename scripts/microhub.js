@@ -52,9 +52,8 @@ function buildLocationList(microhubFreatures) {
         listing.className = 'item';
 
         /* Add the link to the individual listing created above. */
-        const link = listing.appendChild(document.createElement('a'));
-        link.href = '#';
-        link.className = 'title text-info text-decoration-none';
+        const link = listing.appendChild(document.createElement('span'));
+        link.className = 'title text-info';
         link.id = `link-${hub.properties.OBJECTID}`;
         link.innerHTML = `${hub.properties.NAME}`;
 
