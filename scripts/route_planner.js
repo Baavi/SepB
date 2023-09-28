@@ -328,7 +328,7 @@ function drawEndPoints(id, image, coordinates) {
         },
         layout: {
             'icon-image': image,
-            'icon-size': 0.9
+            'icon-size': 1.2
         }
     });
 }
