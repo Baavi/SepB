@@ -80,6 +80,7 @@ if (!isset($_SESSION["customer_name"])) {
                 <tbody>
                 </tbody>
             </table>
+            <br>
             <button class="btn btn-success add_item_btn" id="update"> Update Dataset</button>
             <button class="btn btn-danger add_item_btn" id="delete"> Delete Dataset</button>
             <!-- <pre id="result"></pre> -->
@@ -101,80 +102,6 @@ if (!isset($_SESSION["customer_name"])) {
 
         var coord = [];
         var count = 0;
-
-
-        // Add geocoder result to container.
-        geocoder.on('result', (e) => {
-            //coordinate type 
-            var radios = document.getElementsByName('type');
-            for (var i = 0, length = radios.length; i < length; i++) {
-                if (radios[i].checked) {
-                    var type = radios[i].value;
-                    break;
-                }
-            }
-
-            //Delete Button
-            var deleteButton = document.createElement("button");
-            deleteButton.innerText = "Delete";
-            deleteButton.classList.add("btn");
-            deleteButton.classList.add("btn-warning");
-            deleteButton.addEventListener('click', function() {
-                newRow.parentElement.removeChild(newRow);
-            });
-            var table = document.getElementById("locTable").getElementsByTagName('tbody')[0];;
-            var newRow = table.insertRow();
-            // Insert a cell at the end of the row
-            var newCell1 = newRow.insertCell();
-            var newCell2 = newRow.insertCell();
-            var newCell3 = newRow.insertCell();
-            var newCell4 = newRow.insertCell();
-            var newCell5 = newRow.insertCell();
-
-            //row counter
-            count++;
-            var cell1 = document.createTextNode(count);
-            newCell1.appendChild(cell1);
-            var cell2 = document.createTextNode(e.result.place_name);
-            newCell2.appendChild(cell2);
-            var cell3 = document.createTextNode(e.result.geometry.coordinates);
-            newCell3.appendChild(cell3);
-            var cell4 = document.createTextNode(type);
-            newCell4.appendChild(cell4);
-            newCell5.appendChild(deleteButton);
-
-            //update to session
-            var updateButton = document.getElementById("update");
-            updateButton.onclick = function() {
-                localStorage.clear();
-                var tabled = document.getElementById("locTable");
-                for (var i = 1, row; row = tabled.rows[i]; i++) {
-                    //iterate through rows
-                    console.log("Col1: ", row.cells[1].innerText);
-                    console.log("Col2: ", row.cells[2].innerText);
-                    console.log("Col3: ", row.cells[3].innerText);
-                    coord.push(row.cells[1].innerText, row.cells[2].innerText, row.cells[3].innerText);
-                }
-                localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
-                var retrievedData = localStorage.getItem("sescoord");
-                console.log("retrievedData", retrievedData);
-                let loc = JSON.parse(retrievedData);
-                // console.log("LOC", loc);
-                // results.innerText = loc;
-            };
-
-            //delete session
-            var deleteButton = document.getElementById("delete");
-            deleteButton.addEventListener('click', function() {
-                localStorage.clear();
-                localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
-                var retrievedData = localStorage.getItem("sescoord");
-                console.log("retrievedData", retrievedData);
-                let loc = JSON.parse(retrievedData);
-                // console.log("LOC", loc);
-                // results.innerText = loc;
-            });
-        });
 
         function prefill_form() {
 
@@ -227,6 +154,84 @@ if (!isset($_SESSION["customer_name"])) {
                 }
             }
         }
+
+        // Add geocoder result to container.
+        geocoder.on('result', (e) => {
+            //coordinate type 
+            var radios = document.getElementsByName('type');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    var type = radios[i].value;
+                    break;
+                }
+            }
+
+            //Delete Button
+            var deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete";
+            deleteButton.classList.add("btn");
+            deleteButton.classList.add("btn-warning");
+            deleteButton.addEventListener('click', function() {
+                newRow.parentElement.removeChild(newRow);
+            });
+            var table = document.getElementById("locTable").getElementsByTagName('tbody')[0];;
+            var newRow = table.insertRow();
+            // Insert a cell at the end of the row
+            var newCell1 = newRow.insertCell();
+            var newCell2 = newRow.insertCell();
+            var newCell3 = newRow.insertCell();
+            var newCell4 = newRow.insertCell();
+            var newCell5 = newRow.insertCell();
+
+            //row counter
+            count++;
+            var cell1 = document.createTextNode(count);
+            newCell1.appendChild(cell1);
+            var cell2 = document.createTextNode(e.result.place_name);
+            newCell2.appendChild(cell2);
+            var cell3 = document.createTextNode(e.result.geometry.coordinates);
+            newCell3.appendChild(cell3);
+            var cell4 = document.createTextNode(type);
+            newCell4.appendChild(cell4);
+            newCell5.appendChild(deleteButton);
+
+            //update to session
+            var updateButton = document.getElementById("update");
+            updateButton.onclick = function() {
+                localStorage.clear();
+                var tabled = document.getElementById("locTable");
+                for (var i = 1, row; row = tabled.rows[i]; i++) {
+                    //iterate through rows
+                    // console.log("Col1: ", row.cells[1].innerText);
+                    // console.log("Col2: ", row.cells[2].innerText);
+                    // console.log("Col3: ", row.cells[3].innerText);
+                    coord.push(row.cells[1].innerText, row.cells[2].innerText, row.cells[3].innerText);
+                }
+                localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
+                var retrievedData = localStorage.getItem("sescoord");
+                console.log("retrievedData", retrievedData);
+                let loc = JSON.parse(retrievedData);
+                // console.log("LOC", loc);
+                // results.innerText = loc;
+            };
+
+            //delete session
+            var deleteButton = document.getElementById("delete");
+            deleteButton.addEventListener('click', function() {
+                console.log("deleteButton");
+                sessionStorage.clear();
+                localStorage.clear();
+                localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
+                var retrievedData = localStorage.getItem("sescoord");
+                console.log("retrievedData", retrievedData);
+                let loc = JSON.parse(retrievedData);
+                console.log("LOC", loc);
+                prefill_form();
+                // results.innerText = loc;
+            });
+        });
+
+
 
         function init() {
             prefill_form();
