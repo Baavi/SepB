@@ -4,8 +4,8 @@ const map = new mapboxgl.Map({
   container: "map", // container ID
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
   style: "mapbox://styles/berryagt/cln2s1byp005601pmam10278g", // style URL
-  center: [144.971, -37.809], // starting position
-  zoom: 11, // starting zoom
+  center: [144.971, -37.509], // starting position
+  zoom: 7, // starting zoom
 });
 
 // Add zoom and rotation controls to the map.
