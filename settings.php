@@ -4,8 +4,8 @@
 // $pwd = "130202";
 // $sql_db = "s103170236_db";
 
-$host = "containers-us-west-71.railway.app";
+$host = "containers-us-west-65.railway.app";
 $user = "root";
-$pwd = "F2VzduY14BpmMtrVNtXK";
+$pwd = "ncIibmcTwqKK3q16I7JX";
 $sql_db = "railway";
-$port = '6883';
+$port = '6740';
