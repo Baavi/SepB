@@ -103,7 +103,7 @@ if (!isset($_SESSION["customer_name"])) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmVycnlhZ3QiLCJhIjoiY2xseXRjNDBjMmVjZTNkbGlhcmQ4Y2w3ZSJ9.nQoSvkaX9K01PcQD73JxDg';
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        types: 'country,region,place,postcode,locality,neighborhood'
+        mapboxgl: mapboxgl
     });
 
     geocoder.addTo('#geocoder');
@@ -209,7 +209,7 @@ if (!isset($_SESSION["customer_name"])) {
         //update to session
         var updateButton = document.getElementById("update");
         updateButton.onclick = function() {
-            var coord = [];
+            var orgCoord = [], destCoord = [], coord = [];
             sessionStorage.clear();
             localStorage.clear();
             var tabled = document.getElementById("locTable");
@@ -225,12 +225,14 @@ if (!isset($_SESSION["customer_name"])) {
                     if (Dest <= 12) {
                         console.log("Destination: ", Dest);
                         coord.push(row.cells[1].innerText, row.cells[2].innerText, row.cells[3].innerText);
+                        destCoord.push(row.cells[2].innerText.split(",").map(Number));
                     }
                 } else {
                     Origin++;
                     if (Origin <= 12) {
                         console.log("Origin: ", Origin);
                         coord.push(row.cells[1].innerText, row.cells[2].innerText, row.cells[3].innerText);
+                        orgCoord.push(row.cells[2].innerText.split(",").map(Number));
                     }
                 }
             }
@@ -248,11 +250,14 @@ if (!isset($_SESSION["customer_name"])) {
                 var typeerror = document.getElementById("desitypeerror");
                 typeerror.style.display = "none";
             }
+            localStorage.setItem("orgCoord", JSON.stringify(orgCoord, null, 2));
+            localStorage.setItem("destCoord", JSON.stringify(destCoord, null, 2));
             localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
             var retrievedData = localStorage.getItem("sescoord");
             console.log("retrievedUpdate", retrievedData);
             let loc = JSON.parse(retrievedData);
-            // console.log("LOC", loc);
+            // console.log("retrievedUpdate", retrievedData);
+            // // console.log("LOC", loc);
             // results.innerText = loc;
 
             //Redirect to route_planner page
