@@ -16,7 +16,14 @@ map.on("load", () => {
     layers: ["fuel"],
   });
   document.querySelector("#microhub-no").innerHTML = microhubFreatures.length;
-
+  // Sort all microhubs by suburb
+  microhubFreatures = microhubFreatures.sort(function(a,b){
+      let x = a.properties.SUBURB.toLowerCase();
+      let y = b.properties.SUBURB.toLowerCase();
+      if (x > y) { return 1; } 
+      if (x < y) { return -1; }
+      return 0;
+  });
   buildLocationList(microhubFreatures);
 });
 
