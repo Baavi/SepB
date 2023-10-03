@@ -5,21 +5,9 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a href="dashboard.php" class="menu-item">
-        <i class="bx bxs-dashboard"></i>
-        <span class="links_name">Dashboard</span>
-      </a>
-    </li>
-    <li>
       <a href="addDATASET.php" class="menu-item">
         <i class="bx bx-data"></i>
-        <span class="links_name">Update Dataset</span>
-      </a>
-    </li>
-    <li>
-      <a href="truckpaths.php" class="menu-item">
-        <i class="bx bxs-truck"></i>
-        <span class="links_name">Search by truck</span>
+        <span class="links_name">Set up routes</span>
       </a>
     </li>
     <li>
@@ -31,7 +19,7 @@
     <li>
       <a href="microhubs.php" class="menu-item">
         <i class="bx bx-package"></i>
-        <span class="links_name">Search micro hubs</span>
+        <span class="links_name">View micro hubs</span>
       </a>
     </li>
     <li>
