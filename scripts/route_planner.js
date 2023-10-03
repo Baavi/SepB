@@ -7,7 +7,7 @@ let date = today.toLocaleDateString("default", { year: "numeric" }) + "-"
 let travelTime = (data.time == "any") ? "" : `&depart_at=${date}T${data.time}`;
 let nearestOrgHub, nearestDestHub;
 
-let vktTruck = 0, vktBike = 0;  
+let vktTruck = 0, vktBike = 0;
 let truckTime = 0, bikeTime = 0;
 // const originCoordinates = [
 //     [144.96200, -37.80500],
@@ -33,29 +33,10 @@ let truckTime = 0, bikeTime = 0;
 //     [145.05399, -37.83700]
 // ];
 
-const destCoordinates = [
-    [144.96200, -37.80500],
-    [144.96501, -37.81000],
-    [144.98501, -37.80300],
-    [145.01200, -37.82401],
-    [144.97801, -37.82701],
-    [144.96099, -37.81801],
-    [144.94600, -37.80900],
-    [144.95600, -37.82601],
-    [144.96900, -37.83201]
-];
+const originCoordinates = JSON.parse(localStorage.getItem("orgCoord"));
+const destCoordinates = JSON.parse(localStorage.getItem("destCoord"));
 
-const originCoordinates = [
-    [145.04301, -37.81901],
-    [145.07101, -37.81000],
-    [145.06300, -37.81901],
-    [145.04601, -37.86200],
-    [145.07300, -37.86899],
-    [145.07101, -37.89401],
-    [145.01400, -37.86599],
-    [145.11101, -37.79700],
-    [145.05399, -37.83700]
-];
+
 
 mapboxgl.accessToken =
     'pk.eyJ1IjoiYmVycnlhZ3QiLCJhIjoiY2xseXRjNDBjMmVjZTNkbGlhcmQ4Y2w3ZSJ9.nQoSvkaX9K01PcQD73JxDg';
@@ -213,16 +194,40 @@ map.on('load', async (event) => {
     })
 
     // Make a request to the Optimization API
-    const query3 = await fetch(assembleQueryURLAroundHub(nearestDestHub, truckDestCoordinates, 'driving'), {
-        method: 'GET'
-    });
-    const response3 = await query3.json();
+    if (truckDestCoordinates.length > 1) {
+        const query3 = await fetch(assembleQueryURLAroundHub(nearestDestHub, truckDestCoordinates, 'driving'), {
+            method: 'GET'
+        });
+        const response3 = await query3.json();
+        const routeGeoJSON3 = turf.featureCollection([
+            turf.feature(response3.trips[0].geometry)
+        ]);
+        vktTruck += response3.trips[0].distance;
+        truckTime += response3.trips[0].duration;
+        // Update the `route` source by getting the route source
+        // and setting the data equal to routeGeoJSON
+        map.getSource('dest-truck-route').setData(routeGeoJSON3);
+        drawRoutes('routeline3', 'dest-truck-route', '#bb3dcc');
+    }
 
     // Query for bike
-    const query4 = await fetch(assembleQueryURLAroundHub(nearestDestHub, bikeDestCoordinates, 'cycling'), {
-        method: 'GET'
-    });
-    const response4 = await query4.json();
+    if (bikeDestCoordinates.length > 1) {
+
+        const query4 = await fetch(assembleQueryURLAroundHub(nearestDestHub, bikeDestCoordinates, 'cycling'), {
+            method: 'GET'
+        });
+        const response4 = await query4.json();
+        const routeGeoJSON4 = turf.featureCollection([
+            turf.feature(response4.trips[0].geometry)
+        ]);
+        vktBike += response4.trips[0].distance;
+        bikeTime += response4.trips[0].duration;
+
+        // Update the `route` source by getting the route source
+        // and setting the data equal to routeGeoJSON
+        map.getSource('dest-bike-route').setData(routeGeoJSON4);
+        drawRoutes('routeline4', 'dest-bike-route', '#006100');
+    }
 
     // Create a GeoJSON feature collection
     const routeGeoJSON = turf.featureCollection([
@@ -231,22 +236,13 @@ map.on('load', async (event) => {
     const routeGeoJSON2 = turf.featureCollection([
         turf.feature(response2.routes[0].geometry)
     ]);
-    const routeGeoJSON3 = turf.featureCollection([
-        turf.feature(response3.trips[0].geometry)
-    ]);
-    const routeGeoJSON4 = turf.featureCollection([
-        turf.feature(response4.trips[0].geometry)
-    ]);
+
 
     vktTruck += response.trips[0].distance;
     vktTruck += response2.routes[0].distance;
-    vktTruck += response3.trips[0].distance;
-    vktBike += response4.trips[0].distance;
 
     truckTime += response.trips[0].duration;
     truckTime += response2.routes[0].duration;
-    truckTime += response3.trips[0].duration;
-    bikeTime += response4.trips[0].duration;
 
     // Update the `route` source by getting the route source
     // and setting the data equal to routeGeoJSON
@@ -256,15 +252,6 @@ map.on('load', async (event) => {
     map.getSource('hub-to-hub-route').setData(routeGeoJSON2);
     drawRoutes('routeline2', 'hub-to-hub-route', '#B86812');
 
-    // Update the `route` source by getting the route source
-    // and setting the data equal to routeGeoJSON
-    map.getSource('dest-truck-route').setData(routeGeoJSON3);
-    drawRoutes('routeline3', 'dest-truck-route', '#bb3dcc');
-
-    // Update the `route` source by getting the route source
-    // and setting the data equal to routeGeoJSON
-    map.getSource('dest-bike-route').setData(routeGeoJSON4);
-    drawRoutes('routeline4', 'dest-bike-route', '#006100');
 
     // Layer to display all origins on the map
     drawEndPoints('origins', 'origin_icon_marker', originCoordinates);
