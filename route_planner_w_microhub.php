@@ -102,7 +102,45 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
             <h3 class="m-3">Scenario: <?php echo $scenario ?> - Time: <?php echo $time ?></h3>
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
-                <div id='map'></div>
+                <div class='map-key'>
+                    <h6><strong>Map keys</strong></h6>
+                    <table>
+                        <tr>
+                            <td><img src="./assets/images/microhub.svg"></td>
+                            <td>Micro hubs</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/warehouse_icon.png"></td>
+                            <td>Used micro hubs</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/location_icon_2.png"></td>
+                            <td>Origins</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/location_icon.png"></td>
+                            <td>Destinations</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/origin_truck_path.svg"></td>
+                            <td>Truck paths <br>at origin hub</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/hub-to-hub_path.svg"></td>
+                            <td>Truck paths <br>hub to hub</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/dest_truck_path.svg"></td>
+                            <td>Truck paths <br>at destination hub</td>
+                        </tr>
+                        <tr>
+                            <td><img src="./assets/images/dest_bike_path.svg"></td>
+                            <td>Bike paths <br>at destination hub</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+                <div id='map' class="map-with-sidebar"></div>
                 <script src="./scripts/route_planner.js" type="module"></script>
 
             </div>

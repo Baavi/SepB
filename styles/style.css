@@ -405,3 +405,25 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   background: #17a2b8;
   border-radius: 0;
 }
+
+/* map key styles  */
+.map-key {
+  position: absolute;
+  left: 0;
+  margin-top: 95vh;
+  transform: translateY(-100%);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #000;
+  z-index: 3;
+  padding: 10px;
+}
+
+.map-key img {
+  max-width: 25px;
+  height: auto;
+}
+
+.map-key td {
+  font-size: 75%;
+}
