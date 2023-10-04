@@ -103,7 +103,8 @@ if (!isset($_SESSION["customer_name"])) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmVycnlhZ3QiLCJhIjoiY2xseXRjNDBjMmVjZTNkbGlhcmQ4Y2w3ZSJ9.nQoSvkaX9K01PcQD73JxDg';
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
+        mapboxgl: mapboxgl,
+        language: 'en'
     });
 
     geocoder.addTo('#geocoder');
