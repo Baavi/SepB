@@ -110,7 +110,7 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
                             <td>Micro hubs</td>
                         </tr>
                         <tr>
-                            <td><img src="./assets/images/warehouse_icon.png"></td>
+                            <td><img src="./assets/images/warehouse_icon.svg"></td>
                             <td>Used micro hubs</td>
                         </tr>
                         <tr>
