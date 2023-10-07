@@ -5,15 +5,15 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a href="addDATASET.php" class="menu-item">
-        <i class="bx bx-data"></i>
-        <span class="links_name">Set up routes</span>
-      </a>
-    </li>
-    <li>
       <a href="route_planner_w_microhub.php" class="menu-item">
         <i class="bx bx-trip"></i>
         <span class="links_name">Route Planner</span>
+      </a>
+    </li>
+    <li>
+      <a href="addDATASET.php" class="menu-item">
+        <i class="bx bx-data"></i>
+        <span class="links_name">Set up routes</span>
       </a>
     </li>
     <li>
