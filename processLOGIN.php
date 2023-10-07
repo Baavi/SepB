@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
                         //echo "<p>UserID : ", $_SESSION["UserID"],"</p>";
                         // close the database connection
                         mysqli_close($conn);
-                        header("location: dashboard.php");
+                        header("location: route_planner_w_microhub.php");
                     } else {
                         header("location: index.php?Password=invalid");
                         exit();
