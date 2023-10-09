@@ -194,7 +194,7 @@ map.on('load', async (event) => {
     })
 
     // Make a request to the Optimization API
-    if (truckDestCoordinates.length > 1) {
+    if (truckDestCoordinates.length > 0) {
         const query3 = await fetch(assembleQueryURLAroundHub(nearestDestHub, truckDestCoordinates, 'driving'), {
             method: 'GET'
         });
@@ -211,7 +211,7 @@ map.on('load', async (event) => {
     }
 
     // Query for bike
-    if (bikeDestCoordinates.length > 1) {
+    if (bikeDestCoordinates.length > 0) {
 
         const query4 = await fetch(assembleQueryURLAroundHub(nearestDestHub, bikeDestCoordinates, 'cycling'), {
             method: 'GET'
