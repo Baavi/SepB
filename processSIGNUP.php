@@ -124,11 +124,6 @@ if (isset($_POST["submit"])) {
         echo "<p>Successfully inserted data in the table.</p>";
         // close the database connection
         mysqli_close($conn);
-
-
         header("location:index.php");  //Redirects to 'index.php’ page
-
-
-
     }
 }
