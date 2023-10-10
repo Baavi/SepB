@@ -1,5 +1,8 @@
 <?php
+ob_start(); 
+
 // SANITISE INPUT
+
 function sanitise_input($data)
 {
     $data = trim($data);
