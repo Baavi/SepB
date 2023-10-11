@@ -17,7 +17,8 @@ if (!isset($_SESSION["customer_name"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
     <link href="./styles/style.css" rel="stylesheet" />
     <script src='./scripts/sidebar.js'></script>
@@ -36,17 +37,19 @@ if (!isset($_SESSION["customer_name"])) {
         <?php include_once("navbar.inc"); ?>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js">
         </script>
-        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+        <link rel="stylesheet"
+            href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+            type="text/css">
 
         <style>
-            #geocoder {
-                z-index: 1;
-                margin: 20px;
-            }
+        #geocoder {
+            z-index: 1;
+            margin: 20px;
+        }
 
-            .mapboxgl-ctrl-geocoder {
-                min-width: 100%;
-            }
+        .mapboxgl-ctrl-geocoder {
+            min-width: 100%;
+        }
         </style>
         <!-- Mapbox -->
         <div style="padding-top: 90px; margin-left: 50px; width: 90%;">
@@ -84,9 +87,12 @@ if (!isset($_SESSION["customer_name"])) {
             <div class="alert alert-warning" id="desitypeerror" ole="alert" style="display:none;">
                 Number of Destinations should be between 3-12
             </div>
-            <br>
             <button class="btn btn-success add_item_btn" id="update"> Update Dataset</button>
             <button class="btn btn-danger add_item_btn" id="delete"> Delete Dataset</button>
+            <br><br>
+            <div class="alert alert-primary" role="alert">
+                Upon Updating the Dataset, the user will be redirected to Route Planner Page
+            </div>
             <!-- <pre id="result"></pre> -->
         </div>
 
