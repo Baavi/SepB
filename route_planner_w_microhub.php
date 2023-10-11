@@ -102,6 +102,36 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
             <h3 class="m-3">Scenario: <?php echo $scenario ?> - Time: <?php echo $time ?></h3>
             <!-- Mapbox -->
             <div class="ratio ratio-16x9">
+                <div class='map-scenario'>
+                <h4>Map settings</h4>
+                <form action="route_planner_w_microhub.php" method="post" class="required">
+
+                    <p class="fw-bolder field-required">Select scenario:</p>
+                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php if (!isset($_POST["scenario"]) || $_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
+                        <label for="normal" class="form-check-label">All micro hubs (Normal)</label>
+                    </div>
+                    <div class="form-check"><input type="radio" name="scenario" value="Fewer micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "Fewer micro hubs") echo ("checked='checked'"); ?> />
+                        <label for="fewer" class="form-check-label">Fewer micro hubs</label>
+                    </div>
+                    <div class="form-check mb-3"><input type="radio" name="scenario" value="More micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "More micro hubs") echo ("checked='checked'"); ?> />
+                        <label for="more" class="form-check-label">More micro hubs</label>
+                    </div>
+
+                    <p><label for="time" class="fw-bolder field-required">Time:</label>
+                        <select name="time" id="time" class="form-select">
+                            <option value="any">Any</option>
+                            <option value="05:00">05:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="23:00">23:00</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="submit" value="Apply" class="btn btn-primary" />
+                    </p>
+                </div>
                 <div class='map-key'>
                     <h6><strong>Map keys</strong></h6>
                     <table>
@@ -143,36 +173,6 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
                 <div id='map' class="map-with-sidebar"></div>
                 <script src="./scripts/route_planner.js" type="module"></script>
 
-            </div>
-            <div class="m-5">
-                <h4>Map settings</h4>
-                <form action="route_planner_w_microhub.php" method="post" class="required">
-
-                    <p class="fw-bolder field-required">Select scenario:</p>
-                    <div class="form-check"><input type="radio" name="scenario" value="All micro hubs (normal)" class="form-check-input" <?php if (!isset($_POST["scenario"]) || $_POST["scenario"] == "All micro hubs (normal)") echo ("checked='checked'"); ?> />
-                        <label for="normal" class="form-check-label">All micro hubs (Normal)</label>
-                    </div>
-                    <div class="form-check"><input type="radio" name="scenario" value="Fewer micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "Fewer micro hubs") echo ("checked='checked'"); ?> />
-                        <label for="fewer" class="form-check-label">Fewer micro hubs</label>
-                    </div>
-                    <div class="form-check mb-3"><input type="radio" name="scenario" value="More micro hubs" class="form-check-input" <?php if (isset($_POST["scenario"]) && $_POST["scenario"] == "More micro hubs") echo ("checked='checked'"); ?> />
-                        <label for="more" class="form-check-label">More micro hubs</label>
-                    </div>
-
-                    <p><label for="time" class="fw-bolder field-required">Time:</label>
-                        <select name="time" id="time" class="form-select">
-                            <option value="any">Any</option>
-                            <option value="05:00">05:00</option>
-                            <option value="08:00">08:00</option>
-                            <option value="13:00">13:00</option>
-                            <option value="17:00">17:00</option>
-                            <option value="20:00">20:00</option>
-                            <option value="23:00">23:00</option>
-                        </select>
-                    </p>
-                    <p>
-                        <input type="submit" value="Apply" class="btn btn-primary" />
-                    </p>
             </div>
         </div>
 

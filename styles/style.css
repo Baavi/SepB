@@ -414,7 +414,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
   transform: translateY(-100%);
   overflow: hidden;
   background: #fff;
-  border: 1px solid #000;
+  border: 1px inset #000;
   z-index: 3;
   padding: 10px;
 }
@@ -426,4 +426,15 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
 
 .map-key td {
   font-size: 75%;
+}
+
+/* map scenario styles  */
+.map-scenario {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #000;
+  z-index: 3;
+  padding: 10px;
 }
