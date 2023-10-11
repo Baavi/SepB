@@ -57,7 +57,7 @@ if (!isset($_SESSION["customer_name"])) {
                         <h3>Microhubs locations</h3>
                     </div>
                     <div class="search-box">
-                        <input type="text" placeholder="Search..." class="w-100" id="hub-search-input"/>
+                        <input type="text" placeholder="Search..." class="w-100 form-control py-2" id="hub-search-input"/>
                         <i class="bx bx-search"></i>
                     </div>
                     <div id='listings' class='listings'></div>
