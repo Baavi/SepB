@@ -3,8 +3,9 @@ mapboxgl.accessToken =
 const geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
   mapboxgl: mapboxgl,
-  country: "au",
+  country: "AU",
   language: "en",
+  proximity: [144.96706, -37.81827]
 });
 
 geocoder.addTo("#geocoder");
@@ -43,7 +44,7 @@ function update_form() {
     } else {
       Origin++;
       if (Origin <= 12) {
-        console.log("Origin: ", Origin);
+        // console.log("Origin: ", Origin);
         coord.push(
           row.cells[1].innerText,
           row.cells[2].innerText,
@@ -71,7 +72,7 @@ function update_form() {
   localStorage.setItem("destCoord", JSON.stringify(destCoord, null, 2));
   localStorage.setItem("sescoord", JSON.stringify(coord, null, 2));
   var retrievedData = localStorage.getItem("sescoord");
-  console.log("retrievedUpdate", retrievedData);
+  // console.log("retrievedUpdate", retrievedData);
   let loc = JSON.parse(retrievedData);
   // console.log("retrievedUpdate", retrievedData);
   // // console.log("LOC", loc);
@@ -82,7 +83,7 @@ function prefill_form() {
   if (localStorage.getItem("sescoord") != undefined) {
     //Get session array data If exist
     var retrievedData = localStorage.getItem("sescoord");
-    console.log("retrievedData", retrievedData);
+    // console.log("retrievedData", retrievedData);
     let loc = JSON.parse(retrievedData);
     // console.log("LOC", loc);
     // results.innerText = loc;
@@ -194,9 +195,9 @@ geocoder.on("result", (e) => {
     sessionStorage.clear();
     localStorage.clear();
     var retrievedData = localStorage.getItem("sescoord");
-    console.log("retrievedDelete", retrievedData);
+    // console.log("retrievedDelete", retrievedData);
     let loc = JSON.parse(retrievedData);
-    console.log("LOC", loc);
+    // console.log("LOC", loc);
     location.reload();
   });
 });
