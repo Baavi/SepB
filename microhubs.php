@@ -56,6 +56,10 @@ if (!isset($_SESSION["customer_name"])) {
                     <div class='heading'>
                         <h3>Microhubs locations</h3>
                     </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." class="w-100" id="hub-search-input"/>
+                        <i class="bx bx-search"></i>
+                    </div>
                     <div id='listings' class='listings'></div>
                 </div>
                 <div id="map" class="map-with-sidebar"></div>

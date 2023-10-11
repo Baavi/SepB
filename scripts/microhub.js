@@ -17,14 +17,33 @@ map.on("load", () => {
   });
   document.querySelector("#microhub-no").innerHTML = microhubFreatures.length;
   // Sort all microhubs by suburb
-  microhubFreatures = microhubFreatures.sort(function(a,b){
-      let x = a.properties.SUBURB.toLowerCase();
-      let y = b.properties.SUBURB.toLowerCase();
-      if (x > y) { return 1; } 
-      if (x < y) { return -1; }
-      return 0;
+  microhubFreatures = microhubFreatures.sort(function (a, b) {
+    let x = a.properties.SUBURB.toLowerCase();
+    let y = b.properties.SUBURB.toLowerCase();
+    if (x > y) { return 1; }
+    if (x < y) { return -1; }
+    return 0;
   });
   buildLocationList(microhubFreatures);
+
+  var search_input = document.querySelector("#hub-search-input");
+  search_input.addEventListener("input", function () {
+    const listings = document.getElementById("listings");
+    while (listings.firstChild) {
+      listings.firstChild.remove();
+    }
+    var microhubFreaturesFiltered = microhubFreatures;
+    var search_value = search_input.value.toLowerCase();
+    if (search_value) {
+      microhubFreaturesFiltered = microhubFreatures.filter(hub =>
+        hub.properties.NAME.toLowerCase().indexOf(search_value) !== -1 || 
+        hub.properties.ADDRESS.toLowerCase().indexOf(search_value) !== -1 || 
+        hub.properties.SUBURB.toLowerCase().indexOf(search_value) !== -1);
+    }
+    buildLocationList(microhubFreaturesFiltered);
+
+  });
+
 });
 
 //Labels for MicroHubs
