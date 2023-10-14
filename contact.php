@@ -29,23 +29,15 @@ if (!isset($_SESSION["customer_name"])) {
   <?php include_once("sidebar.inc"); ?>
   <section class="home-section">
     <?php include_once("navbar.inc"); ?>
-    <form name="form" id="contact-form" class="form" action="https://formspree.io/f/mzblgywo;" method="POST">
+    <form name="form" id="contact-form" class="form" action="mail.php" method="POST">
       <h2 class="text-primary">Contact</h2>
 
       <fieldset>
         <div class="form-group">
-          <label for="Firstname" class="col-form-label col-form-label-lg font-weight-bold">First Name</label>
-          <input name="FirstName" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name=" Firstname" id="Firstname" placeholder="John">
+          <label for="name" class="col-form-label col-form-label-lg font-weight-bold">Name</label>
+          <input name="name" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name=" name" id="name" placeholder="John Smith">
           <div class="invalid-feedback">
-            Please provide a valid First name
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="Lastname" class="col-form-label col-form-label-lg font-weight-bold">Last Name</label>
-          <input name="LastName" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name="Lastname" id="Lastname" placeholder="Smith">
-          <div class="invalid-feedback">
-            Please provide a valid Last name
+            Please provide a valid name
           </div>
         </div>
 
@@ -54,6 +46,14 @@ if (!isset($_SESSION["customer_name"])) {
           <input name="Email" type="text" class="form-control form-control-lg" name="Email" id="Email" required="required" placeholder="name@gmail.com">
           <div class="invalid-feedback">
             Please provide a valid Email
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="subject" class="col-form-label col-form-label-lg font-weight-bold">Subject</label>
+          <input name="subject" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name="subject" id="subject" placeholder="Eg. Issue">
+          <div class="invalid-feedback">
+            Please provide a valid subject
           </div>
         </div>
 
