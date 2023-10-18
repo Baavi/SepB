@@ -29,7 +29,7 @@ if (!isset($_SESSION["customer_name"])) {
   <?php include_once("sidebar.inc"); ?>
   <section class="home-section">
     <?php include_once("navbar.inc"); ?>
-    <form name="form" id="contact-form" class="form" action="mail.php" method="POST">
+    <form name="form" id="contact-form" class="form" action="contact.php" method="POST">
       <h2 class="text-primary">Contact</h2>
 
       <fieldset>
@@ -51,7 +51,7 @@ if (!isset($_SESSION["customer_name"])) {
 
         <div class="form-group">
           <label for="subject" class="col-form-label col-form-label-lg font-weight-bold">Subject</label>
-          <input name="subject" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name="subject" id="subject" placeholder="Eg. Issue">
+          <input name="subject" type="text" required="required" maxlength="20" pattern="[A-Za-z ]{1,20}" class="form-control form-control-lg" name="subject" id="subject" placeholder="Eg. Issue">
           <div class="invalid-feedback">
             Please provide a valid subject
           </div>
@@ -69,6 +69,23 @@ if (!isset($_SESSION["customer_name"])) {
       </fieldset>
     </form>
     <?php
+    if (isset($_POST['submit'])) {
+      $name = $_POST['name'];
+      $subject = $_POST['subject'];
+      $email = $_POST['Email'];
+      $message = $_POST['message'];
+
+      $mailto = "103068001@student.swin.edu.au";
+      $headers = "From: " . $email;
+
+
+      mail($mailto, $subject, $message, $headers);
+
+      echo "<div class='alert alert-success' role='alert'>
+            The message was successfully sent to the developer team!
+            </div>";
+    }
+
     include_once("footer.inc");
     ?>
   </section>
