@@ -35,7 +35,7 @@ if (!isset($_SESSION["customer_name"])) {
       <fieldset>
         <div class="form-group">
           <label for="name" class="col-form-label col-form-label-lg font-weight-bold">Name</label>
-          <input name="name" type="text" required="required" maxlength="20" pattern="[A-Za-z]{1,20}" class="form-control form-control-lg" name=" name" id="name" placeholder="John Smith">
+          <input name="name" type="text" required="required" maxlength="20" pattern="[A-Za-z ]{1,20}" class="form-control form-control-lg" name=" name" id="name" placeholder="John Smith">
           <div class="invalid-feedback">
             Please provide a valid name
           </div>
@@ -51,7 +51,7 @@ if (!isset($_SESSION["customer_name"])) {
 
         <div class="form-group">
           <label for="subject" class="col-form-label col-form-label-lg font-weight-bold">Subject</label>
-          <input name="subject" type="text" required="required" maxlength="20" pattern="[A-Za-z ]{1,20}" class="form-control form-control-lg" name="subject" id="subject" placeholder="Eg. Issue">
+          <input name="subject" type="text" required="required" maxlength="20" pattern="[A-Za-z ]{1,30}" class="form-control form-control-lg" name="subject" id="subject" placeholder="Eg. Issue">
           <div class="invalid-feedback">
             Please provide a valid subject
           </div>

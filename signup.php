@@ -22,7 +22,7 @@
   ?>
     <br>
     <div class="container">
-        <h1>SignUp</h1><br>
+        <h1>Sign Up</h1><br>
         <form name="form" id="form" method="post" action="processSIGNUP.php">
             <fieldset>
 
@@ -79,7 +79,7 @@
                     </div>
 
 
-                    <input type="submit" class="btn btn-primary btn-lg" name="submit" value="submit" />
+                    <input type="submit" class="btn btn-primary btn-lg" name="submit" value="Submit" />
                     <small id="emailHelp" class="form-text text-muted  col-form-label">Already have an account? Log
                         In!</small>
                     <a href="index.php" class="btn btn-primary btn-lg" role="button"> Log In </a>
