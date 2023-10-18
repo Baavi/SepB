@@ -90,6 +90,16 @@ echo "<script>var data = " . json_encode($data) . ";</script>";
 
                 <div class="box">
                     <div class="left-side">
+                        <div class="box-topic">Transportation Cost</div>
+                        <div class="number text-primary" id="total-cost">$0.0 </div>
+                        <div class="text-danger" id="truck-cost">$0.0</div>
+                        <div class="text-success" id="bike-cost">$0.0</div>
+                    </div>
+                    <i class="bx bxs-badge-dollar cart"></i>
+                </div>
+
+                <div class="box">
+                    <div class="left-side">
                         <div class="box-topic">CO2 emissions
                             <span class="text-danger">from truck</span>
                         </div>

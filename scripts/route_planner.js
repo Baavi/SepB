@@ -429,6 +429,14 @@ function updateData() {
     document.querySelector("#truck-time").innerHTML = "Truck: " + (truckTime / 3600).toFixed(2) + " hours";
     document.querySelector("#bike-time").innerHTML = "Bike: " + (bikeTime / 3600).toFixed(2) + " hours";
 
+    var truckCostPKm = 0.75;
+    var driverCostPHr = 50;
+    var truckCost = vktTruck / 1000 * truckCostPKm + truckTime / 3600 * driverCostPHr;
+    var bikeCost = bikeTime / 3600 * driverCostPHr;
+    document.querySelector("#total-cost").innerHTML = "$" + (truckCost + bikeCost).toFixed(2);
+    document.querySelector("#truck-cost").innerHTML = "Truck: $" + truckCost.toFixed(2);
+    document.querySelector("#bike-cost").innerHTML = "Bike: $" + bikeCost.toFixed(2);
+
     //  Truck travelling for 1KM carrying 1 ton emits 105g of CO2 
     document.querySelector("#co2-emissions").innerHTML = (vktTruck / 1000 * 105).toFixed(2) + " g";
 

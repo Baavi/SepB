@@ -220,7 +220,7 @@ nav .profile-details i {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% / 3 - 35px);
+  width: calc(100% / 4 - 25px);
   background: #fff;
   padding: 25px 25px;
   border-radius: 12px;
